@@ -1,38 +1,61 @@
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+  background-color: #282c34;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  min-height: 70px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.App-nav{
+  background-color: #00114a;
+  width:100%;
+  box-sizing: border-box;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.App-main{
+  background-image: url("./vecteezy_ai-generative-music-symbol-above-the-sheet-background_31583738.jpg");
+  background-size: cover; 
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
+
+.App-form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width:200px;
+  margin:50px;
+  gap:30px;
+}
+
+.App-input{
+  width:200px;
+  height:40px;
+}
+.App-search{
+  width:80px;
+  border-radius: 20px;
+  height: 40px;
+  background-color: #00114a;
+  color:white;
+  border:0;
+}
+.App-search:hover{
+  background-color: #011d79;
+  margin-top: 2px;
+  width:79px;
+  height:38px
+}
+
