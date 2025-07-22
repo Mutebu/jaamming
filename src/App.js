@@ -1,5 +1,6 @@
 import './App.css';
 import Results from './components/Results.js';
+import CreatePlaylistField from './components/createPlaylistField.js';
 
 function App() {
   return (
@@ -14,8 +15,9 @@ function App() {
           <input type='text' className='App-input'/>
           <button className='App-search'>Search</button>
         </form>
-        <div>
+        <div className='resultsAndCreatePlaylist'>
           <Results/>
+          <CreatePlaylistField/>
         </div>
       </main>
       <footer>
