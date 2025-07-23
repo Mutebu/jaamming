@@ -1,6 +1,8 @@
+import React, {useState} from 'react';
 import './App.css';
 import Results from './components/Results.js';
 import CreatePlaylistField from './components/CreatePlaylistField.js';
+import Search from './components/Search.js'
 
 function App() {
   return (
@@ -11,10 +13,7 @@ function App() {
         </nav>
       </header>
       <main className="App-main">
-        <form className='App-form'>
-          <input type='text' className='App-input'/>
-          <button className='App-search'>Search</button>
-        </form>
+        <Search/>
         <div className='resultsAndCreatePlaylist'>
           <Results/>
           <CreatePlaylistField/>
