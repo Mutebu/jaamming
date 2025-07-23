@@ -1,6 +1,6 @@
 import './App.css';
 import Results from './components/Results.js';
-import CreatePlaylistField from './components/createPlaylistField.js';
+import CreatePlaylistField from './components/CreatePlaylistField.js';
 
 function App() {
   return (

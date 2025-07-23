@@ -59,3 +59,10 @@
   height:38px
 }
 
+.resultsAndCreatePlaylist {
+  display: flex;
+  justify-content: space-around;
+  max-width: 1000px;
+  padding: 20px;
+  height: 700px;
+}

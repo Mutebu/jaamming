@@ -1,11 +1,15 @@
 .Results{
     background-color: #0014a980;
     color: white;
-    padding: 10px 100px 100px 15px;
+    width:400px;
     border-radius: 10px;
     text-align: left;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     margin: 10px;
     line-height: 0%;
-    height: 700px;
+    height:100%;
+}
+
+.h2{
+    padding:10px 0 0 15px
 }

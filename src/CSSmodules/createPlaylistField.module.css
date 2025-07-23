@@ -1,11 +1,25 @@
 .CreatePlaylistField{
     background-color: #0014a980;
     color: white;
-    padding: 10px 100px 100px 15px;
     border-radius: 10px;
     text-align: left;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     margin: 10px;
-    line-height: 0%;
-    height: 700px;
+    height: 100%;
+}
+
+.EditableHeading {
+    font-size: 1.5em;
+    min-height: auto;
+    margin:10px;
+    line-height: normal;   
+    min-width: 400px;
+    box-sizing: content-box;   
+    border-bottom: 2px solid white;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.EditableHeading:focus {
+    outline: none;
 }
