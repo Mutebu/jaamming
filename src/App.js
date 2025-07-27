@@ -1,10 +1,50 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 import Results from './components/Results.js';
 import CreatePlaylistField from './components/CreatePlaylistField.js';
-import Search from './components/Search.js'
+import {searchSpotify} from './components/SpotifyAPI.js'
 
 function App() {
+  const[input, setInput] = useState("");
+  const[text, setText] = useState("");
+  const [items, setItems] = useState([]);
+  const [chosenItems, setChosenItems] = useState([])
+  const handleChange = (e) => {
+    setInput(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setText(input);
+  };
+
+  const addSong = (songId) => {
+    const chosenItemById = items[songId];
+    if(!chosenItems.some(item => item.id===chosenItemById.id)){
+      setChosenItems(prev => {return [chosenItemById, ...prev]});
+    }
+  }
+
+  const deleteSong = (songId) => {
+    setChosenItems(prev => prev.filter(item => item.id !== songId))
+  }
+
+  useEffect(() => {
+      async function fetchData(){
+          const result = await searchSpotify(text);
+          if(result && result.tracks && result.tracks.items){
+              setItems(result.tracks.items);
+          };
+      };
+      if(text){
+          fetchData();
+      }
+  }, [text])
+
+  useEffect(() => {
+    console.log(chosenItems);
+  }, [chosenItems])
+
   return (
     <div className="App">
       <header className="App-header">
@@ -13,14 +53,17 @@ function App() {
         </nav>
       </header>
       <main className="App-main">
-        <Search/>
+        <form className='App-form' onSubmit={handleSubmit}>
+          <input type='text' className='App-input' value={input} onChange={handleChange}/>
+          <button className='App-search'>Search</button>
+        </form>
         <div className='resultsAndCreatePlaylist'>
-          <Results/>
-          <CreatePlaylistField/>
+          <Results items={items} addSong={addSong}/>
+          <CreatePlaylistField chosenItems={chosenItems} deleteSong={deleteSong}/>
         </div>
       </main>
-      <footer>
-        <a href="https://www.vecteezy.com/free-photos/music-background">Music Background Stock photos by Vecteezy</a>
+      <footer className="footer">
+        <a href="https://www.vecteezy.com/free-photos/music-background" className='link'>Music Background Stock photos by Vecteezy</a>
       </footer>
     </div>
   );

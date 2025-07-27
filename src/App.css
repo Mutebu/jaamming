@@ -64,5 +64,17 @@
   justify-content: space-around;
   max-width: 1000px;
   padding: 20px;
-  height: 700px;
+  min-height: fit-content;
+  height: 1000px;
+}
+
+.footer{
+  color: white;
+}
+
+.link{
+  color: white;
+}
+.link:hover{
+  color: #ffffffd1
 }

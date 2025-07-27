@@ -5,11 +5,24 @@
     text-align: left;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     margin: 10px;
-    height: 100%;
+    min-height: 100%;
+}
+
+.h2{
+    padding:20px 0 10px 0;
+    margin:0 20px;
+    border-bottom: 1px solid white;
+
+}
+
+.title{
+    display: inline-block;
+    width: fit-content;
+    margin-left: 20px;
 }
 
 .EditableHeading {
-    font-size: 1.5em;
+    font-size: 1em;
     min-height: auto;
     margin:10px;
     line-height: normal;   
@@ -18,8 +31,94 @@
     border-bottom: 2px solid white;
     display: inline-block;
     vertical-align: bottom;
+    margin: 20px 20px;
 }
 
 .EditableHeading:focus {
     outline: none;
+}
+
+.list{
+    overflow-y: auto;
+    min-height: 100px;
+    max-height: 98.5vh;
+    box-sizing: border-box;
+    list-style:none;
+    padding: 0 20px;
+}
+
+.items{
+    line-height: normal;
+    border-bottom: 1px solid white;
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    margin:20px 0 0 0;
+}
+.itemsTitle{
+    max-width:300px;
+    white-space: normal;
+    word-break: break-word;
+    display:block;
+    margin: 0 0 5px 0;
+}
+
+.artists{
+    display: inline-block;
+    margin:5px;
+    color:rgb(229, 229, 229);
+}
+
+.list::-webkit-scrollbar{
+    width:12px;
+    background-color: #0010bf5f;
+    border-radius: 5px;
+}
+
+.list::-webkit-scrollbar-thumb{
+    background-color: #3593ff9e;
+    border-radius: 5px;
+}
+
+.list::-webkit-scrollbar-thumb:hover{
+    background-color: #3593ff;
+}
+
+.createPlaylist{
+  display: block;
+  width: 80px;
+  margin: 0 auto;
+  border-radius: 20px;
+  height: 40px;
+  background-color: #00114a;
+  color: white;
+  border: 0;
+}
+.createPlaylist:hover{
+  background-color: #011d79;
+  margin-top: 1px;
+  width:79px;
+  height:38px
+}
+
+.nameAndArtists{
+    display: inline-block;
+    max-width: 300px;
+}
+
+.button{
+    border-radius: 20px;
+    height: 30px;
+    background-color: #00114a;
+    color: white;
+    border: 0;
+    width: 30px;
+}
+
+.button:hover{
+    background-color: #011d79;
+    margin-top: 1px;
+    width:29px;
+    height:28px;
+    margin:1px 0;
 }
