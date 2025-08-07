@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import './App.css';
 import Results from './components/Results.js';
 import CreatePlaylistField from './components/CreatePlaylistField.js';
-import {searchSpotify} from './components/SpotifyAPI.js'
+import {onPageLoad, searchSpotify} from './components/SpotifyAPI.js'
 
 function App() {
   const[input, setInput] = useState("");
@@ -21,12 +21,20 @@ function App() {
   const addSong = (songId) => {
     const chosenItemById = items[songId];
     if(!chosenItems.some(item => item.id===chosenItemById.id)){
-      setChosenItems(prev => {return [chosenItemById, ...prev]});
+      setChosenItems(prev => {
+        const newChosenItems = [chosenItemById, ...prev];
+        localStorage.setItem('chosen_items', JSON.stringify(newChosenItems));
+        return newChosenItems;
+      });
     }
   }
 
   const deleteSong = (songId) => {
-    setChosenItems(prev => prev.filter(item => item.id !== songId))
+    setChosenItems(prev => {
+      const newChosenItems = prev.filter(item => item.id !== songId)
+      localStorage.setItem('chosen_items', JSON.stringify(newChosenItems));
+      return newChosenItems;
+    })
   }
 
   useEffect(() => {
@@ -42,8 +50,13 @@ function App() {
   }, [text])
 
   useEffect(() => {
+    console.log('choseItems:')
     console.log(chosenItems);
   }, [chosenItems])
+
+  useEffect(() => {
+    onPageLoad();
+  },[])
 
   return (
     <div className="App">
