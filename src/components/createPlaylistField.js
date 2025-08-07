@@ -1,10 +1,16 @@
-import React, {useEffect} from 'react';
+import React, {useState,useEffect} from 'react';
 import styles from '../CSSmodules/CreatePlaylistField.module.css';
 import { addTracksToPlaylist, onPageLoad } from './SpotifyAPI';
-
+import {createPlaylist} from './modules/createPlaylist'
 
 function CreatePlaylistField({chosenItems, deleteSong}) {
-  
+  const [text, setText] = useState('')
+  const handleChange = (e) => {
+    const newText = e.target.textContent;
+    setText(newText);
+    localStorage.setItem('playlist_name', newText);
+
+  }
   useEffect(() => {
     onPageLoad();
   }, [window.location.search])
@@ -13,7 +19,7 @@ function CreatePlaylistField({chosenItems, deleteSong}) {
     <div className={styles.CreatePlaylistField}>
       <h2 className={styles.h2}>Playlist</h2>
       <h3 className={styles.title}>Title:</h3>
-      <h3 contentEditable = 'true'className={styles.EditableHeading}></h3>
+      <h3 contentEditable = 'true'className={styles.EditableHeading} onInput={handleChange} onBlur={handleChange}></h3>
       <ul className={styles.list}>
         {chosenItems.map((item,itemId) => {
           return(
@@ -29,7 +35,8 @@ function CreatePlaylistField({chosenItems, deleteSong}) {
           )
         })}
       </ul>
-      <button className={styles.createPlaylist} onClick={() => addTracksToPlaylist()}>Create</button>
+      <button className={styles.createPlaylist} onClick={() => addTracksToPlaylist()}>add</button>
+      <button className={styles.createPlaylist} onClick={() => createPlaylist()}>Create</button>
     </div>
   );
 }

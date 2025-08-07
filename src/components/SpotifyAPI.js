@@ -1,7 +1,7 @@
 import React from 'react';
-import {getUserProfile} from './modules/getUserProfile';
-import { getUserPlaylists } from './modules/getUserPlaylists';
 import { addItemsToPlaylist } from './modules/addItemsToPlaylist';
+import { getCode } from './modules/getCode';
+import {createPlaylist} from './modules/createPlaylist';
 
 const clientId = process.env.REACT_APP_CLIENT_ID;
 const clientSecret = process.env.REACT_APP_CLIENT_SECRET;
@@ -15,6 +15,10 @@ const scopes = [
 const AUTHORIZE = 'https://accounts.spotify.com/authorize'
 const TOKEN = 'https://accounts.spotify.com/api/token'
 
+
+//Page loads
+
+//Getting code from window.location.search
 let isProcessingCode = false
 
 function onPageLoad(){
@@ -27,9 +31,17 @@ function onPageLoad(){
 
 function handleRedirect(){
   let code = getCode();
+  localStorage.setItem('code', code);
   fetchAccessToken(code);
 }
 
+
+
+
+
+//Authorization
+
+//ACCESS TOKEN
 function fetchAccessToken(code){
   let body = new URLSearchParams({
     grant_type:'authorization_code',
@@ -56,11 +68,11 @@ function handleAuthorizationResponse(){
     console.log(data);
     if(data.access_token != undefined){
       let access_token=data.access_token;
+      let expires_in = Date.now() + data.expires_in*1000;
       localStorage.setItem('access_token', access_token);
+      localStorage.setItem('expires_in', expires_in);
       console.log(access_token);
       window.history.replaceState({}, document.title, "/");
-      getUserProfile();
-      getUserPlaylists();
       addItemsToPlaylist();
     }
   }else{
@@ -70,14 +82,24 @@ function handleAuthorizationResponse(){
   isProcessingCode = false;
 }
 
-function getCode(){
-  let code = null;
-  const queryString = window.location.search;
-  if(queryString.length > 0){
-    const urlParams = new URLSearchParams(queryString);
-    code = urlParams.get('code');
+
+
+
+
+//ADD
+
+//Adding tracks to playlist
+async function addTracksToPlaylist() {
+  if (localStorage.getItem('code') === null){
+    requestAuthorization();
+  }else{
+    const expires_in = localStorage.getItem('expires_in');
+    if(Date.now() > expires_in){
+      requestAuthorization();
+    }else{
+      addItemsToPlaylist();
+    }
   }
-  return code
 }
 
 function requestAuthorization(){
@@ -93,6 +115,28 @@ function requestAuthorization(){
   window.location.href = url;
 }
 
+//CREATE
+//Creating playlist
+function CreatingPlaylist(){
+  if (localStorage.getItem('code') === null){
+    requestAuthorization();
+  }else{
+    const expires_in = localStorage.getItem('expires_in');
+    if(Date.now() > expires_in){
+      requestAuthorization();
+    }else{
+      createPlaylist();
+    }
+  }
+}
+
+
+
+//SEARCH
+//Handling search api
+
+
+//Getting access token for search
 async function getAccessTokenForSearch() {
     const response = await fetch('https://accounts.spotify.com/api/token', {
         method: 'POST',
@@ -109,6 +153,7 @@ async function getAccessTokenForSearch() {
 
 };
 
+//Getting search response
 async function searchSpotify(query) {
     const token = await getAccessTokenForSearch();
     const response = await fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track,artist&limit=50`, {
@@ -121,9 +166,6 @@ async function searchSpotify(query) {
     return result;
 };
 
-async function addTracksToPlaylist() {
-  requestAuthorization();
-}
 
     
 export {searchSpotify, addTracksToPlaylist, onPageLoad};

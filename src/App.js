@@ -55,6 +55,10 @@ function App() {
   }, [chosenItems])
 
   useEffect(() => {
+    if (window.location.hostname === 'localhost') {
+        window.location.replace(window.location.href.replace('localhost', '127.0.0.1'));
+        return;
+    }
     onPageLoad();
   },[])
 
