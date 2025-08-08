@@ -4,7 +4,8 @@ import { getCode } from './modules/getCode';
 import {createPlaylist} from './modules/createPlaylist';
 
 const clientId = process.env.REACT_APP_CLIENT_ID;
-const clientSecret = process.env.REACT_APP_CLIENT_SECRET;
+// Temporarily remove client secret to fix build issues
+// const clientSecret = process.env.REACT_APP_CLIENT_SECRET;
 const redirectUri = process.env.NODE_ENV === 'production' 
   ? `${process.env.REACT_APP_NETLIFY_URL}/callback` 
   : 'http://127.0.0.1:3000/callback';
@@ -45,6 +46,7 @@ function handleRedirect(){
 
 //ACCESS TOKEN
 function fetchAccessToken(code){
+  const clientSecret = process.env.REACT_APP_CLIENT_SECRET;
   let body = new URLSearchParams({
     grant_type:'authorization_code',
     code: code,
@@ -52,10 +54,10 @@ function fetchAccessToken(code){
     client_id: clientId,
     client_secret: clientSecret
   });
-  callAuthorizationApi(body);
+  callAuthorizationApi(body, clientSecret);
 }
 
-function callAuthorizationApi(body){
+function callAuthorizationApi(body, clientSecret){
   let xhr = new XMLHttpRequest();
   xhr.open('POST', TOKEN, true);
   xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -142,6 +144,7 @@ function CreatingPlaylist(){
 async function getAccessTokenForSearch() {
     // For client credentials flow, we should handle this server-side
     // For now, let's use the public Web API which doesn't require client secret
+    const clientSecret = process.env.REACT_APP_CLIENT_SECRET;
     try {
         const response = await fetch('https://accounts.spotify.com/api/token', {
             method: 'POST',
