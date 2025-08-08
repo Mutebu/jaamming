@@ -1,25 +1,24 @@
-import React, {useState,useEffect} from 'react';
+import React, {useEffect} from 'react';
 import styles from '../CSSmodules/CreatePlaylistField.module.css';
 import { addTracksToPlaylist, onPageLoad } from './SpotifyAPI.js';
 import {createPlaylist} from './modules/createPlaylist.js';
 
 function CreatePlaylistField({chosenItems, deleteSong}) {
-  const [text, setText] = useState('')
+  // Remove unused 'text' variable
   const handleChange = (e) => {
     const newText = e.target.textContent;
-    setText(newText);
     localStorage.setItem('playlist_name', newText);
-
   }
+  
   useEffect(() => {
     onPageLoad();
-  }, [window.location.search])
+  }, []) // Remove window.location.search dependency
 
   return (
     <div className={styles.CreatePlaylistField}>
       <h2 className={styles.h2}>Playlist</h2>
       <h3 className={styles.title}>Title:</h3>
-      <h3 contentEditable='true' className={styles.EditableHeading} onInput={handleChange} onBlur={handleChange}></h3>
+      <h3 contentEditable='true' className={styles.EditableHeading} onInput={handleChange} onBlur={handleChange}>Playlist Name</h3>
       <ul className={styles.list}>
         {chosenItems.map((item,itemId) => {
           return(

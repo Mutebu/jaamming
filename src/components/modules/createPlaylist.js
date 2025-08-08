@@ -25,7 +25,7 @@ function createPlaylist(){
     console.log(nameOfPlaylist)
     const chosen_items = localStorage.getItem('chosen_items');
     const parsed_items = JSON.parse(chosen_items);
-    const uris = parsed_items.map((item) => item.uri);
+    // Remove unused uris variable since it's not used in this function
     let body = {
         name: nameOfPlaylist,
         description: "won",

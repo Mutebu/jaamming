@@ -16,7 +16,7 @@ function getUserProfile(){
 };
 
 function handleGetUserProfileResponse(){
-  if (this.status == 200) {
+  if (this.status === 200) {
     const userProfile = JSON.parse(this.responseText);
     console.log('User profile', userProfile);
     localStorage.setItem('user_profile', JSON.stringify(userProfile));

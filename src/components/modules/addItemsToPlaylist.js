@@ -10,7 +10,8 @@ function getPlaylistEndpoint() {
 
 function handleResponse() {
     if (this.status === 201){
-        let data = JSON.parse(this.responseText);
+        // Remove unused variable
+        JSON.parse(this.responseText);
         localStorage.removeItem('chosen_items');
     }
 }

@@ -1,4 +1,3 @@
-import React from 'react';
 import { addItemsToPlaylist } from './modules/addItemsToPlaylist';
 import { getCode } from './modules/getCode';
 import {createPlaylist} from './modules/createPlaylist';
@@ -67,10 +66,10 @@ function callAuthorizationApi(body, clientSecret){
 }
 
 function handleAuthorizationResponse(){
-  if (this.status == 200){
+  if (this.status === 200){
     let data = JSON.parse(this.responseText);
     console.log(data);
-    if(data.access_token != undefined){
+    if(data.access_token !== undefined){
       let access_token=data.access_token;
       let expires_in = Date.now() + data.expires_in*1000;
       localStorage.setItem('access_token', access_token);
@@ -117,21 +116,6 @@ function requestAuthorization(){
   })
   url+= `/?${urlEndpoint}`;
   window.location.href = url;
-}
-
-//CREATE
-//Creating playlist
-function CreatingPlaylist(){
-  if (localStorage.getItem('code') === null){
-    requestAuthorization();
-  }else{
-    const expires_in = localStorage.getItem('expires_in');
-    if(Date.now() > expires_in){
-      requestAuthorization();
-    }else{
-      createPlaylist();
-    }
-  }
 }
 
 
