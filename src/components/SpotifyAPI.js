@@ -5,7 +5,9 @@ import {createPlaylist} from './modules/createPlaylist';
 
 const clientId = process.env.REACT_APP_CLIENT_ID;
 const clientSecret = process.env.REACT_APP_CLIENT_SECRET;
-const redirectUri = 'http://127.0.0.1:3000/callback';
+const redirectUri = process.env.NODE_ENV === 'production' 
+  ? `${process.env.REACT_APP_NETLIFY_URL}/callback` 
+  : 'http://127.0.0.1:3000/callback';
 const scopes = [
   'playlist-modify-private',
   'playlist-modify-public',
