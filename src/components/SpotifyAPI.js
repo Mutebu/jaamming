@@ -3,11 +3,11 @@ import { addItemsToPlaylist } from './modules/addItemsToPlaylist';
 import { getCode } from './modules/getCode';
 import {createPlaylist} from './modules/createPlaylist';
 
-const clientId = process.env.REACT_APP_CLIENT_ID;
+const clientId = process.env.REACT_APP_CLIENT_ID || '502c74e44ce84d9391e7e7d7b2d4a448';
 // Temporarily remove client secret to fix build issues
 // const clientSecret = process.env.REACT_APP_CLIENT_SECRET;
 const redirectUri = process.env.NODE_ENV === 'production' 
-  ? `${process.env.REACT_APP_NETLIFY_URL}/callback` 
+  ? `${process.env.REACT_APP_NETLIFY_URL || 'https://mellow-fudge-3dedda.netlify.app'}/callback` 
   : 'http://127.0.0.1:3000/callback';
 const scopes = [
   'playlist-modify-private',
