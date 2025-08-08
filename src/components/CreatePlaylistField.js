@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import styles from '../CSSmodules/CreatePlaylistField.module.css';
-import { addTracksToPlaylist, onPageLoad } from './SpotifyAPI.js';
-import {createPlaylist} from './modules/createPlaylist.js';
+import { addTracksToPlaylist, onPageLoad, createPlaylist } from './SpotifyAPI.js';
 
 function CreatePlaylistField({chosenItems, deleteSong}) {
   // Remove unused 'text' variable

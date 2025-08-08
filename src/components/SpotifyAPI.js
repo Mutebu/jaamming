@@ -1,6 +1,6 @@
 import { addItemsToPlaylist } from './modules/addItemsToPlaylist';
 import { getCode } from './modules/getCode';
-import {createPlaylist} from './modules/createPlaylist';
+import { createPlaylist } from './modules/createPlaylist';
 
 const clientId = process.env.REACT_APP_CLIENT_ID || '502c74e44ce84d9391e7e7d7b2d4a448';
 // Temporarily remove client secret to fix build issues
@@ -182,4 +182,4 @@ async function searchSpotify(query) {
 
 
     
-export {searchSpotify, addTracksToPlaylist, onPageLoad};
+export {searchSpotify, addTracksToPlaylist, onPageLoad, createPlaylist};

@@ -23,9 +23,7 @@ function createPlaylist(){
     const access_token = localStorage.getItem('access_token');
     let nameOfPlaylist = localStorage.getItem('playlist_name');
     console.log(nameOfPlaylist)
-    const chosen_items = localStorage.getItem('chosen_items');
-    const parsed_items = JSON.parse(chosen_items);
-    // Remove unused uris variable since it's not used in this function
+    // Remove unused variables since they're not used in this function
     let body = {
         name: nameOfPlaylist,
         description: "won",
