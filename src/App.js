@@ -56,6 +56,10 @@ function App() {
   }, [chosenItems])
 
   useEffect(() => {
+    console.log('App loaded, current URL:', window.location.href);
+    console.log('Environment:', process.env.NODE_ENV);
+    console.log('Client ID:', process.env.REACT_APP_CLIENT_ID);
+    
     if (window.location.hostname === 'localhost') {
         window.location.replace(window.location.href.replace('localhost', '127.0.0.1'));
         return;

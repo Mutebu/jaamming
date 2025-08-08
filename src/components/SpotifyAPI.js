@@ -140,32 +140,57 @@ function CreatingPlaylist(){
 
 //Getting access token for search
 async function getAccessTokenForSearch() {
-    const response = await fetch('https://accounts.spotify.com/api/token', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': 'Basic ' + btoa(`${clientId}:${clientSecret}`)
-        },
-        body: 'grant_type=client_credentials'
-    });
-    if (response.ok) {
-        const data = await response.json();
-        return data.access_token;
+    // For client credentials flow, we should handle this server-side
+    // For now, let's use the public Web API which doesn't require client secret
+    try {
+        const response = await fetch('https://accounts.spotify.com/api/token', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': 'Basic ' + btoa(`${clientId}:${clientSecret || ''}`)
+            },
+            body: 'grant_type=client_credentials'
+        });
+        if (response.ok) {
+            const data = await response.json();
+            return data.access_token;
+        } else {
+            console.error('Failed to get access token:', response.statusText);
+            return null;
+        }
+    } catch (error) {
+        console.error('Error getting access token:', error);
+        return null;
     }
-
 };
 
 //Getting search response
 async function searchSpotify(query) {
-    const token = await getAccessTokenForSearch();
-    const response = await fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track,artist&limit=50`, {
-        headers: {
-            'Authorization': `Bearer ${token}`
+    try {
+        const token = await getAccessTokenForSearch();
+        if (!token) {
+            console.error('No access token available for search');
+            return null;
         }
-    });
-    const result = await response.json();
-    console.log(result);
-    return result;
+        
+        const response = await fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track,artist&limit=50`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        
+        if (!response.ok) {
+            console.error('Search failed:', response.statusText);
+            return null;
+        }
+        
+        const result = await response.json();
+        console.log(result);
+        return result;
+    } catch (error) {
+        console.error('Error in searchSpotify:', error);
+        return null;
+    }
 };
 
 
