@@ -1,7 +1,7 @@
 import React, {useState,useEffect} from 'react';
 import styles from '../CSSmodules/CreatePlaylistField.module.css';
-import { addTracksToPlaylist, onPageLoad } from './SpotifyAPI';
-import {createPlaylist} from './modules/createPlaylist'
+import { addTracksToPlaylist, onPageLoad } from './SpotifyAPI.js';
+import {createPlaylist} from './modules/createPlaylist.js';
 
 function CreatePlaylistField({chosenItems, deleteSong}) {
   const [text, setText] = useState('')
@@ -19,7 +19,7 @@ function CreatePlaylistField({chosenItems, deleteSong}) {
     <div className={styles.CreatePlaylistField}>
       <h2 className={styles.h2}>Playlist</h2>
       <h3 className={styles.title}>Title:</h3>
-      <h3 contentEditable = 'true'className={styles.EditableHeading} onInput={handleChange} onBlur={handleChange}></h3>
+      <h3 contentEditable='true' className={styles.EditableHeading} onInput={handleChange} onBlur={handleChange}></h3>
       <ul className={styles.list}>
         {chosenItems.map((item,itemId) => {
           return(

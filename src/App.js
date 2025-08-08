@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import './App.css';
-import Results from './components/Results';
-import CreatePlaylistField from './components/CreatePlaylistField';
-import {onPageLoad, searchSpotify} from './components/SpotifyAPI'
-import Playlists from './components/Playlists'
+import Results from './components/Results.js';
+import CreatePlaylistField from './components/CreatePlaylistField.js';
+import {onPageLoad, searchSpotify} from './components/SpotifyAPI.js'
+import Playlists from './components/Playlists.js'
 
 function App() {
   const[input, setInput] = useState("");
